@@ -18,20 +18,21 @@
  *
  *****************************************************************************/
 
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <time.h>
+#include <chrono>
 
 using namespace std;
 
+const int TEST_SIZE = 10;
 
 
 vector<int> prefixAverage1(vector<int> X)
 {
-    vector<int> A(10);
+    vector<int> A(TEST_SIZE);
     int a;
-
 
     for(int i = 0; i < A.size(); i++)
     {
@@ -49,10 +50,12 @@ return A;
 
 int main()
 {
-    const int TEST_SIZE = 10;
-
     vector<int> X;
     srand (time(NULL));
+
+
+    cout <<"**PREFIX AVERAGE 1 (QUADRATIC)** with test size of: "<< TEST_SIZE << endl << endl << endl;
+
 
     for(int i = 0; i < TEST_SIZE; i++)
     {
@@ -60,26 +63,27 @@ int main()
         X.push_back(rand() % 999 + 1);
     }
     
-     sort(X.begin (), X.end ());
+     //sort(X.begin (), X.end ());
 
-    /*
-    cout << "BEFORE" << endl << endl;
-    for (const auto & i:X)
+    
+    cout << "First 4 in Vector List" << endl << endl;
+    for (int i = 0; i < 4; i++)
     {
-      cout << i << ' ' << endl << endl;
+      cout << X[i] << ' ' << endl << endl;
     }
-    */
-
+    
+    auto start = chrono::steady_clock::now();
     X = prefixAverage1(X);
+    auto end = chrono::steady_clock::now();
 
-    /*
-    cout << "AFTER" << endl << endl;
-    for (const auto & i:X)
+
+    cout << "First 4 Prefix Averages" << endl << endl;
+    for (int i = 0; i < 4; i++)
     {
-      cout << i << ' ' << endl << endl;
+      cout << X[i] << ' ' << endl << endl;
     }
-    */
 
+    cout << "Time elapsed: " << chrono::duration_cast<chrono::microseconds>(end-start).count() << " microseconds" << endl;
 system("PAUSE");
 return 0;    
 }
